@@ -50,14 +50,14 @@ finalList.sort((a, b) => a.data.name < b.data.name ? -1 : 1);
 var idCounter = 6;
 
 // Handle table body row
-tableBodyRowData = currentId => {
+tableBodyRowData = currentIndex => {
     var rowData = ``;
-    var values = Object.values(finalList[currentId].data);
-    values.unshift(finalList[currentId].id);
+    var values = Object.values(finalList[currentIndex].data);
+    values.unshift(finalList[currentIndex].id);
     var actionsDiv = `
         <div class="button-wrapper">
-            <button type="button" onclick="onEdit()">Edit</button>
-            <button type="button" onclick="onDelete()">Delete</button>
+            <button type="button" onclick="onEdit(${currentIndex})">Edit</button>
+            <button type="button" onclick="onDelete(${currentIndex})">Delete</button>
         </div>
     `;
     values.push(actionsDiv);
@@ -86,54 +86,89 @@ tableBodyRow = () => {
 finalList.length > 0 ? document.getElementById("tbody").innerHTML += `${tableBodyRow()}` : null;
 
 // Handle sin number format
-var totalLength = 0;
-var portionLength = 0;
-
 format = () => {
-    portionLength++;
-    totalLength++;
-    if (portionLength === 3) {
-        if (totalLength < 9) {
-            document.getElementById("sin").value += "-";
-            portionLength = 0;
-        }
+    var sinNumber = document.getElementById("sin").value;
+    var newSinNumber = "";
+    for (var i in sinNumber) {
+        (sinNumber.charAt(i) === "-" || sinNumber.charAt(i) === " ") ? newSinNumber += "" : newSinNumber += sinNumber.charAt(i);
     }
+    document.getElementById("sin").value = newSinNumber.slice(0, 3) + "-" + newSinNumber.slice(3, 6) + "-" + newSinNumber.slice(6);
+}
+
+// Delete table
+handleDeleteTable = () => {
+    // Delete old table (if any)
+    var tbody = document.getElementById("tbody");
+    tbody.parentNode.removeChild(tbody);
+}
+
+// Populate table
+handlePopulateTable = () => {
+    document.getElementById("result-table").innerHTML += `
+        <tbody id="tbody">
+            ${tableBodyRow()}
+        </tbody>
+    `;
 }
 
 // Form validation
 validateForm = () => {
-    // Delete old table (if any)
-    var tbody = document.getElementById("tbody");
-    tbody.parentNode.removeChild(tbody);
-
     var missingField = false;
+    const sinFormat = /[0-9]{3}-[0-9]{3}-[0-9]{3}/gm;
     var personData = {};
 
     const formData = new FormData(document.querySelector('form'))
     for (var pair of formData.entries()) {
-        console.log(pair);
-        if(pair[1].length === 0) {
+        if(pair[0] !== "occupation" && pair[1].length === 0) {
             alert(`Please input your ${pair[0]}`);
             missingField = true;
         } else {
-            personData[pair[0]] = pair[1];
+            if (pair[0] === "age") {
+                if (pair[1] > 1 && pair[1] < 101) {
+                    personData[pair[0]] = pair[1];
+                } else {
+                    alert(`Please input the correct format of your ${pair[0]}`);
+                    missingField = true;
+                }
+            } else if (pair[0] === "sin") {
+                if(pair[1].match(sinFormat)) {
+                    personData[pair[0]] = pair[1];
+                } else {
+                    alert(`Please input the correct format of your ${pair[0]}`);
+                    missingField = true;
+                }
+            } else {
+                personData[pair[0]] = pair[1];
+            }
         }
     }
 
-    if(missingField === false) { 
+    if(missingField === false) {
+        handleDeleteTable();
         finalList.push({ id: idCounter, data: personData });
         idCounter++;
         finalList.sort((a, b) => a.data.name < b.data.name ? -1 : 1);
 
-        document.getElementById("result-table").innerHTML += `
-            <tbody id="tbody">
-                ${tableBodyRow()}
-            </tbody>
-        `;
+        handlePopulateTable();
     }
 }
 
+// Handle edit user
+onEdit = (currentIndex) => {
+    var userInfo = Object.values(finalList[currentIndex].data);
+    const fieldId = ["name", "age", "occupation", "sin"];
+
+    for (var i = 0; i< fieldId.length; i++) {
+        document.getElementById(`${fieldId[i]}`).value = userInfo[i];
+    }
+    finalList.splice(currentIndex, 1);
+    // console.log(finalList);
+}
+
 // Handle delete user
-onDelete = id => {
-    console.log('here');
+onDelete = currentIndex => {
+    finalList.splice(currentIndex, 1);
+    handleDeleteTable();
+    handlePopulateTable();
+    // console.log(finalList);
 }

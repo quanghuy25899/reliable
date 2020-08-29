@@ -19,7 +19,7 @@
 			<div id="body-content" class="col-12 col-s-12">
 				<div>
 					<div class="form-wrapper">
-						<form id="survey-form" name="survey-form">
+						<form id="survey-form" name="survey-form" onsubmit="validateForm()">
 							<div id="input-value-field" class="form-group">
 								<div id="name-field" class="field-group">
 									<label id="name-label" class="is-title" for="name">Full name</label><br />
@@ -30,6 +30,7 @@
 											class="styled-input" 
 											name="name"
 											placeholder="Full name" 
+											minlength="3" 
 											maxlength="40" 
 										/>
 									</div>
@@ -73,14 +74,17 @@
 											name="sin"
 											placeholder="###-###-###" 
 											pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"
-											oninput="format()" 
+											onchange="format()" 
 										/>
 									</div>
 								</div>
 							</div>
 
 							<div id="buttons-field" class="form-group">
-								<button type="button" id="submit" method="post" onclick="validateForm()">
+								<button type="button" id="update" class="button button-ghost" method="post" onclick="validateForm()">
+									<strong>Update User</strong>
+								</button>
+								<button type="button" id="submit" class="button button-primary" method="post" onclick="validateForm()">
 									<strong>+ Add user</strong>
 								</button>
 							</div>

@@ -59,26 +59,28 @@ html {
 .input-field-wrapper {
     display: flex;
 }
-
-.delete-btn {
-    text-align: center;
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    margin-left: 10px;
-    cursor: pointer;
-}
   
-#submit {
+.button {
     padding-top: 10px;
     padding-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     width: 100%;
-    color: white;
     font-size: 20px;
     border-radius: 10px;
-    background-color: #4CAF50;
     cursor: pointer;
+}
+
+.button-primary {
+    color: white;
+    background-color: #4CAF50;
     border: none;
+}
+
+.button-ghost {
+    color: #4CAF50;
+    background-color: white;
+    border: 3px solid #4CAF50;
 }
 
 table {
