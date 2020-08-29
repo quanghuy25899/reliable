@@ -26,6 +26,10 @@ html {
 .form-group {
     margin: 50px 50px 50px 50px;
 }
+
+.field-group {
+    margin-bottom: 15px;
+}
   
 .styled-input {
     padding: 10px 0 10px 10px;
@@ -35,6 +39,32 @@ html {
   
 .is-title {
     font-size: 25px;
+}
+
+.styled-button {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    color: #4CAF50;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 3px solid #4CAF50;
+    background-color: white;
+}
+
+.input-field-wrapper {
+    display: flex;
+}
+
+.delete-btn {
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    margin-left: 10px;
+    cursor: pointer;
 }
   
 #submit {

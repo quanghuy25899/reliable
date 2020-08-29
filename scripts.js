@@ -1,7 +1,7 @@
 // Handle sin number format
 var totalLength = 0;
 var portionLength = 0;
-function format() {
+format = () => {
     portionLength++;
     totalLength++;
     if (portionLength === 3) {
@@ -13,7 +13,7 @@ function format() {
 }
 
 // Form validation
-function validateForm() {
+validateForm = () => {
     var validationArr = [];
     var missingField = false;
 
@@ -32,4 +32,32 @@ function validateForm() {
     if(missingField === false) {
         alert("Thank you for your information! We will contact you shortly.");
     }
+}
+
+// Handle add field
+onAddField = () => {
+    var fieldTitle = prompt("Please enter field title");
+
+    var convertFieldTitle = "";
+    for (var i = 0; i < fieldTitle.length; i++) {
+        if(fieldTitle[i] === " ") {
+            convertFieldTitle += "-";
+        } else {
+            convertFieldTitle += fieldTitle[i].toLowerCase();
+        }
+    }
+
+    var newDiv = document.createElement("div");
+    newDiv.innerHTML = `
+        <div id="${convertFieldTitle}-field" class="field-group">
+            <label id="${convertFieldTitle}-label" class="is-title" for="name">${fieldTitle}</label><br />
+            <div class="input-field-wrapper">
+            <input type="text" id="${convertFieldTitle}" class="styled-input" name="${convertFieldTitle}" placeholder="${fieldTitle}" />
+            <button type="button" class="delete-btn"><b>X</b></button>
+            </div>
+        </div>
+    `;
+
+    console.log(newDiv);
+    document.getElementById("#input-value-field").appendChild(newDiv);
 }
