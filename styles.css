@@ -18,7 +18,9 @@ html {
 }
   
 .form-wrapper {
-    background-color: rgb(88, 63, 105);
+    background-color: rgb(88, 63, 105, 0.8);
+    padding-top: 1px;
+    padding-bottom: 1px;
     width: 700px;
     border-radius: 10px;
 }
@@ -77,6 +79,28 @@ html {
     background-color: #4CAF50;
     cursor: pointer;
     border: none;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    background-color: white;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: space-between;
 }
 
 /* For mobile phones: */

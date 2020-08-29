@@ -1,73 +1,112 @@
 <html>
-    <head>
-        <title>Simple web app</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="styles.css">
-        <script src="scripts.js">
-        </script>
-    </head>
-    <body>
-        <div id="main">
-            <div id="heading-content" class="col-12 col-s-12">
-              <div class="heading-wrapper">
-                <h1 id="title">
-                  Innitial information
-                </h1>
-                <p id="description">
-                  Thank you for providing your information
-                </p>
-              </div>
-            </div>
-            
-            <div id="body-content" class="col-12 col-s-12">
-              <div class="form-wrapper">
-                <form id="survey-form" name="survey-form" onsubmit="validateForm()">
-                  <div id="input-value-field" class="form-group">
-                    <div id="name-field" class="field-group">
-                      <label id="name-label" class="is-title" for="name">Full name</label><br />
-                      <div class="input-field-wrapper">
-                        <input type="text" id="name" class="styled-input" name="name" placeholder="Full name" maxlength="40" value="Quang Huy Pham" />
-                        <button type="button" class="delete-btn" onclick="onDelete()"><b>X</b></button>
-                      </div>
-                    </div>
+	<head>
+		<title>Simple web app</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="styles.css">
+	</head>
 
-                    <div id="age-field" class="field-group">
-                      <label id="age-label" class="is-title" for="age">Age</label><br />
-                      <div class="input-field-wrapper">
-                        <input type="number" id="age" class="styled-input" name="age" min="1" max="101" placeholder="Age (1-101)" value="21" />
-                        <button type="button" class="delete-btn"><b>X</b></button>
-                      </div>
-                    </div>
+	<body>
+		<div id="main">
+			<div id="heading-content" class="col-12 col-s-12">
+				<div class="heading-wrapper">
+					<h1 id="title">
+						User Management App
+					</h1>
+				</div>
+			</div>
 
-                    <div id="occupation-field" class="field-group">
-                      <label id="occupation-label" class="is-title" for="name">Occupation</label><br />
-                      <div class="input-field-wrapper">
-                        <input type="text" id="occupation" class="styled-input" name="occupation" placeholder="Current occupation" value="Web Deveoper" />
-                        <button type="button" class="delete-btn"><b>X</b></button>
-                      </div>
-                    </div>
+			<div id="body-content" class="col-12 col-s-12">
+				<div>
+					<div class="form-wrapper">
+						<form id="survey-form" name="survey-form">
+							<div id="input-value-field" class="form-group">
+								<div id="name-field" class="field-group">
+									<label id="name-label" class="is-title" for="name">Full name</label><br />
+									<div class="input-field-wrapper">
+										<input 
+											type="text" 
+											id="name" 
+											class="styled-input" 
+											name="name"
+											placeholder="Full name" 
+											maxlength="40" 
+										/>
+									</div>
+								</div>
 
-                    <div id="sin-field" class="field-group">
-                      <label id="sin-label" class="is-title" for="sin">SIN number</label><br />
-                      <div class="input-field-wrapper">
-                        <input type="text" id="sin" class="styled-input" name="sin" placeholder="###-###-###" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}" value="942-255-373" oninput="format()" />
-                        <button type="button" class="delete-btn"><b>X</b></button>
-                      </div>
-                    </div>
-                  </div>
+								<div id="age-field" class="field-group">
+									<label id="age-label" class="is-title" for="age">Age</label><br />
+									<div class="input-field-wrapper">
+										<input 
+											type="number" 
+											id="age" 
+											class="styled-input" 
+											name="age" 
+											min="1" 
+											max="101"
+											placeholder="Age (1-101)" 
+										/>
+									</div>
+								</div>
 
-                  <div id="buttons-field" class="form-group">
-                    <button type="button" id="add" class="styled-button" onclick="onAddField()">
-                      <strong>+ Add field</strong>
-                    </button>
-                    <button type="submit" id="submit" method="post">
-                      <strong>Submit</strong>
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-    </body>
+								<div id="occupation-field" class="field-group">
+									<label id="occupation-label" class="is-title" for="occupation">Occupation</label><br />
+									<div class="input-field-wrapper">
+										<input 
+											type="text" 
+											id="occupation" 
+											class="styled-input" 
+											name="occupation"
+											placeholder="Current occupation"  
+										/>
+									</div>
+								</div>
+
+								<div id="sin-field" class="field-group">
+									<label id="sin-label" class="is-title" for="sin">SIN number</label><br />
+									<div class="input-field-wrapper">
+										<input 
+											type="text" 
+											id="sin" 
+											class="styled-input" 
+											name="sin"
+											placeholder="###-###-###" 
+											pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"
+											oninput="format()" 
+										/>
+									</div>
+								</div>
+							</div>
+
+							<div id="buttons-field" class="form-group">
+								<button type="button" id="submit" method="post" onclick="validateForm()">
+									<strong>+ Add user</strong>
+								</button>
+							</div>
+						</form>
+					</div>
+					<br />
+					<div id="result">
+						<table id="result-table">
+							<thead id="thead">
+								<tr>
+									<th>ID</th>
+									<th>Full name</th>
+									<th>Age</th>
+									<th>Occupation</th>
+									<th>SIN number</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody id="tbody">
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="scripts.js">
+	</script>
 </html>
