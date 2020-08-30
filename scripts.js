@@ -1,3 +1,4 @@
+// List of entries
 var finalList = [
     {
         id : 1,
@@ -40,20 +41,28 @@ var finalList = [
         data: {
             name: "Lamborghini",
             age: "57",
-            occupation: "Hourse killer",
+            occupation: "Horse killer",
             sin: "777-777-777"
         }
     }
 ];
-finalList.sort((a, b) => a.data.name.toLocaleLowerCase() < b.data.name.toLocaleLowerCase() ? -1 : 1);
 
+// Global variables
 var idCounter = 6;
+var currentUserId = null;
+var order = "ascending";
+var ongoingIndex = null;
+var personData = {};
+var currentField = null;
 
-// Handle table body row
-tableBodyRowData = currentIndex => {
+// Handle populate table body row data
+const tableBodyRowData = currentIndex => {
     var rowData = ``;
+    // get user's data
     var values = Object.values(finalList[currentIndex].data);
+    // add user's id
     values.unshift(finalList[currentIndex].id);
+    // update and delete options
     var actionsDiv = `
         <div class="button-wrapper">
             <button type="button" onclick="onEdit(${currentIndex})">Edit</button>
@@ -69,8 +78,8 @@ tableBodyRowData = currentIndex => {
     return rowData;
 }
 
-// Handle table body data
-tableBodyRow = () => {
+// Handle populate table body row
+const tableBodyRow = () => {
     var tableRow = ``;
     for (var i = 0; i < finalList.length; i++) {
         tableRow += `
@@ -83,10 +92,11 @@ tableBodyRow = () => {
     return tableRow;
 }
 
+// populate table when the page is loaded for the first time
 finalList.length > 0 ? document.getElementById("tbody").innerHTML += `${tableBodyRow()}` : null;
 
 // Handle sin number format
-format = () => {
+const format = () => {
     var sinNumber = document.getElementById("sin").value;
     var newSinNumber = "";
     for (var i in sinNumber) {
@@ -96,14 +106,13 @@ format = () => {
 }
 
 // Delete table
-handleDeleteTable = () => {
-    // Delete old table (if any)
+const handleDeleteTable = () => {
     var tbody = document.getElementById("tbody");
     tbody.parentNode.removeChild(tbody);
 }
 
 // Populate table
-handlePopulateTable = () => {
+const handlePopulateTable = () => {
     document.getElementById("result-table").innerHTML += `
         <tbody id="tbody">
             ${tableBodyRow()}
@@ -112,10 +121,9 @@ handlePopulateTable = () => {
 }
 
 // Form validation
-validateForm = () => {
+const validateForm = () => {
     var missingField = false;
     const sinFormat = /[0-9]{3}-[0-9]{3}-[0-9]{3}/;
-    var personData = {};
 
     const formData = new FormData(document.querySelector('form'))
     for (var pair of formData.entries()) {
@@ -143,32 +151,136 @@ validateForm = () => {
         }
     }
 
-    if(missingField === false) {
-        handleDeleteTable();
+    return !missingField ? true : false;
+}
+
+// Handle add user
+const addUser = () => {
+    if (validateForm()) {
+        // add new user data
         finalList.push({ id: idCounter, data: personData });
         idCounter++;
-        finalList.sort((a, b) => a.data.name.toLocaleLowerCase() < b.data.name.toLocaleLowerCase() ? -1 : 1);
+        // reset personData variable
+        personData = {};
 
+        // re-render table
+        handleDeleteTable();
         handlePopulateTable();
+        document.getElementById("survey-form").reset();
+        alert("User is added successfully");
     }
 }
 
-// Handle edit user
-onEdit = (currentIndex) => {
+// Handle update user
+const updateUser = () => {
+    if (validateForm()) {
+        // remove old user data
+        finalList.splice(ongoingIndex, 1);
+        // add new user data with the same id
+        finalList.push({ id: currentUserId, data: personData });
+        // reset personData variable
+        personData = {};
+
+        // re-render table
+        handleDeleteTable();
+        handlePopulateTable();
+        document.getElementById("survey-form").reset();
+        alert("User is updated successfully");
+    }
+}
+
+// Handle update user
+const onEdit = (currentIndex) => {
+    // Update HTML code
+    // Remove Add User button
+    var addUserButton = document.getElementById("submit");
+    if (addUserButton !== null) {
+        addUserButton.parentNode.removeChild(addUserButton);
+
+        // Add Update User options
+        document.getElementById("buttons-field").innerHTML += `
+            <div id="update-options">
+                <button type="button" id="cancel-update" class="button button-ghost" method="post" onclick="handleCancelUpdate()">
+                    <strong>Cancel</strong>
+                </button>
+                <button type="button" id="update" class="button button-primary" method="post" onclick="updateUser()">
+                    <strong>Update User</strong>
+                </button>
+            </div>
+        `;
+    }
+
+    // Handle edit
+    ongoingIndex = currentIndex;
     var userInfo = Object.values(finalList[currentIndex].data);
+    currentUserId = finalList[currentIndex].id;
     const fieldId = ["name", "age", "occupation", "sin"];
 
     for (var i = 0; i< fieldId.length; i++) {
         document.getElementById(`${fieldId[i]}`).value = userInfo[i];
     }
-    finalList.splice(currentIndex, 1);
     // console.log(finalList);
 }
 
+// Handle cancel update
+const handleCancelUpdate = () => {
+    // Remove update options
+    var updateOptions = document.getElementById("update-options");
+    updateOptions.parentNode.removeChild(updateOptions);
+
+    // Add submit button
+    document.getElementById("buttons-field").innerHTML += `
+        <button type="button" id="submit" class="button button-primary" method="post" onclick="validateForm(false)">
+            <strong>+ Add user</strong>
+        </button>
+    `;
+    document.getElementById("survey-form").reset();
+}
+
 // Handle delete user
-onDelete = currentIndex => {
-    finalList.splice(currentIndex, 1);
+const onDelete = currentIndex => {
+    var confirmonDelete = confirm('Are you sure you want to delete this user?');
+
+    if (confirmonDelete) {
+        // remove the selected user from finalList
+        finalList.splice(currentIndex, 1);
+
+        // re-render table
+        handleDeleteTable();
+        handlePopulateTable();
+    }
+    // console.log(finalList);
+}
+
+// Handle sorting
+const onSort = sortField => {
+    // Reset order when a new field is selected to be sorted
+    if (sortField !== currentField && currentField !== null) {
+        order = "ascending";
+    }
+    currentField = sortField;
+
+    // handle sorting
+    switch(order) {
+        case "ascending":
+            if (sortField === 'name') {
+                finalList.sort((a, b) => a.data.name.toLocaleLowerCase() < b.data.name.toLocaleLowerCase() ? -1 : 1);
+            } else {
+                finalList.sort((a, b) => a.data.age - b.data.age);
+            }
+            order = "descending";
+            break;
+        case "descending":
+            if (sortField === 'name') {
+                finalList.sort((a, b) => b.data.name.toLocaleLowerCase() < a.data.name.toLocaleLowerCase() ? -1 : 1);
+            } else {
+                finalList.sort((a, b) => b.data.age - a.data.age);
+            }
+            order = "ascending";
+            break;
+    }
+    
+    // re-render table
     handleDeleteTable();
     handlePopulateTable();
-    // console.log(finalList);
 }

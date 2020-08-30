@@ -1,4 +1,13 @@
 html {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+body {
+    height: auto;
+    overflow-y: hidden;
+    font-size: 13px;
+    -webkit-font-smoothing: auto;
     background-image: url(https://st2.depositphotos.com/2069237/7412/v/600/depositphotos_74127691-stock-video-man-walking-in-office-buiding.jpg);
     background-size: cover;
     background-repeat: no-repeat;
@@ -15,6 +24,19 @@ html {
 #heading-content {
     font-size: 30px;
     text-align: center;
+}
+
+#update-options {
+    display: flex;
+    justify-content: space-around;
+}
+
+#cancel-update {
+    margin-right: 10px;
+}
+
+#update {
+    margin-left: 10px;
 }
 
 .is-centered {
@@ -92,6 +114,24 @@ html {
     border: 3px solid #4CAF50;
 }
 
+a:link {
+    color: black;
+    text-decoration: none;
+}
+a:visited {
+    color: black;
+    text-decoration: none;
+}
+a:hover {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+a:active {
+    color: black;
+    text-decoration: none;
+}
+
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
@@ -117,6 +157,15 @@ tr:nth-child(even) {
 /* For mobile phones: */
 [class*="col-"] {
     width: 100%;
+}
+
+@media only screen and (max-width: 992px) {
+    #result-table {
+        overflow: hidden;
+    }
+    #table-wrapper {
+        overflow-x: auto;
+    }
 }
 
 @media only screen and (min-width: 600px) {

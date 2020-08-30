@@ -2,8 +2,9 @@
 	<head>
 		<title>Simple web app</title>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0, shrink-to-fit=0">
 		<link rel="stylesheet" href="styles.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 
 	<body>
@@ -20,7 +21,7 @@
 				<div class="col-12 col-s-11">
 					<div class="is-centered">
 						<div class="form-wrapper col-9 col-s-11">
-							<form id="survey-form" name="survey-form" onsubmit="validateForm()">
+							<form id="survey-form" name="survey-form" onsubmit="validateForm(false)">
 								<div id="input-value-field" class="form-group">
 									<div id="name-field" class="field-group">
 										<label id="name-label" class="is-title" for="name">Full name</label><br />
@@ -82,10 +83,7 @@
 								</div>
 	
 								<div id="buttons-field" class="form-group">
-									<button type="button" id="update" class="button button-ghost" method="post" onclick="validateForm()">
-										<strong>Update User</strong>
-									</button>
-									<button type="button" id="submit" class="button button-primary" method="post" onclick="validateForm()">
+									<button type="button" id="submit" class="button button-primary" method="post" onclick="addUser()">
 										<strong>+ Add user</strong>
 									</button>
 								</div>
@@ -94,13 +92,13 @@
 					</div>
 					<br />
 					<div id="result" class="col-12 col-s-12">
-						<div class="is-centered">
-							<table id="result-table" class="col-9 col-s-11">
+						<div id="table-wrapper" class="is-centered">
+							<table id="result-table">
 								<thead id="thead">
 									<tr>
 										<th>ID</th>
-										<th>Full name</th>
-										<th>Age</th>
+										<th><a onclick="onSort('name')">Full name <i class="fa fa-angle-down"></i></a></th>
+										<th><a onclick="onSort('age')">Age <i class="fa fa-angle-down"></i></a></th>
 										<th>Occupation</th>
 										<th>SIN number</th>
 										<th>Actions</th>
