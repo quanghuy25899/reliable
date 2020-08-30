@@ -8,104 +8,108 @@
 
 	<body>
 		<div id="main">
-			<div id="heading-content" class="col-12 col-s-12">
-				<div class="heading-wrapper">
-					<h1 id="title">
+			<div id="heading-content">
+				<div class="heading-wrapper col-12 col-s-12">
+					<h1 id="title" style="color: rgb(56, 56, 56, 0.8)">
 						User Management App
 					</h1>
 				</div>
 			</div>
 
-			<div id="body-content" class="col-12 col-s-12">
-				<div>
-					<div class="form-wrapper">
-						<form id="survey-form" name="survey-form" onsubmit="validateForm()">
-							<div id="input-value-field" class="form-group">
-								<div id="name-field" class="field-group">
-									<label id="name-label" class="is-title" for="name">Full name</label><br />
-									<div class="input-field-wrapper">
-										<input 
-											type="text" 
-											id="name" 
-											class="styled-input" 
-											name="name"
-											placeholder="Full name" 
-											minlength="3" 
-											maxlength="40" 
-										/>
+			<div id="body-content">
+				<div class="col-12 col-s-11">
+					<div class="is-centered">
+						<div class="form-wrapper col-9 col-s-11">
+							<form id="survey-form" name="survey-form" onsubmit="validateForm()">
+								<div id="input-value-field" class="form-group">
+									<div id="name-field" class="field-group">
+										<label id="name-label" class="is-title" for="name">Full name</label><br />
+										<div class="input-field-wrapper">
+											<input 
+												type="text" 
+												id="name" 
+												class="styled-input" 
+												name="name"
+												placeholder="Full name" 
+												minlength="3" 
+												maxlength="40" 
+											/>
+										</div>
+									</div>
+	
+									<div id="age-field" class="field-group">
+										<label id="age-label" class="is-title" for="age">Age</label><br />
+										<div class="input-field-wrapper">
+											<input 
+												type="number" 
+												id="age" 
+												class="styled-input" 
+												name="age" 
+												min="1" 
+												max="101"
+												placeholder="Age (1-101)" 
+											/>
+										</div>
+									</div>
+	
+									<div id="occupation-field" class="field-group">
+										<label id="occupation-label" class="is-title" for="occupation">Occupation</label><br />
+										<div class="input-field-wrapper">
+											<input 
+												type="text" 
+												id="occupation" 
+												class="styled-input" 
+												name="occupation"
+												placeholder="Current occupation"  
+											/>
+										</div>
+									</div>
+	
+									<div id="sin-field" class="field-group">
+										<label id="sin-label" class="is-title" for="sin">SIN number</label><br />
+										<div class="input-field-wrapper">
+											<input 
+												type="text" 
+												id="sin" 
+												class="styled-input" 
+												name="sin"
+												placeholder="###-###-###" 
+												pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"
+												onchange="format()" 
+											/>
+										</div>
 									</div>
 								</div>
-
-								<div id="age-field" class="field-group">
-									<label id="age-label" class="is-title" for="age">Age</label><br />
-									<div class="input-field-wrapper">
-										<input 
-											type="number" 
-											id="age" 
-											class="styled-input" 
-											name="age" 
-											min="1" 
-											max="101"
-											placeholder="Age (1-101)" 
-										/>
-									</div>
+	
+								<div id="buttons-field" class="form-group">
+									<button type="button" id="update" class="button button-ghost" method="post" onclick="validateForm()">
+										<strong>Update User</strong>
+									</button>
+									<button type="button" id="submit" class="button button-primary" method="post" onclick="validateForm()">
+										<strong>+ Add user</strong>
+									</button>
 								</div>
-
-								<div id="occupation-field" class="field-group">
-									<label id="occupation-label" class="is-title" for="occupation">Occupation</label><br />
-									<div class="input-field-wrapper">
-										<input 
-											type="text" 
-											id="occupation" 
-											class="styled-input" 
-											name="occupation"
-											placeholder="Current occupation"  
-										/>
-									</div>
-								</div>
-
-								<div id="sin-field" class="field-group">
-									<label id="sin-label" class="is-title" for="sin">SIN number</label><br />
-									<div class="input-field-wrapper">
-										<input 
-											type="text" 
-											id="sin" 
-											class="styled-input" 
-											name="sin"
-											placeholder="###-###-###" 
-											pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"
-											onchange="format()" 
-										/>
-									</div>
-								</div>
-							</div>
-
-							<div id="buttons-field" class="form-group">
-								<button type="button" id="update" class="button button-ghost" method="post" onclick="validateForm()">
-									<strong>Update User</strong>
-								</button>
-								<button type="button" id="submit" class="button button-primary" method="post" onclick="validateForm()">
-									<strong>+ Add user</strong>
-								</button>
-							</div>
-						</form>
+							</form>
+						</div>
 					</div>
 					<br />
-					<div id="result">
-						<table id="result-table">
-							<thead id="thead">
-								<tr>
-									<th>ID</th>
-									<th>Full name</th>
-									<th>Age</th>
-									<th>Occupation</th>
-									<th>SIN number</th>
-									<th>Actions</th>
-								</tr>
-							</thead>
-							<tbody id="tbody">
-							</tbody>
-						</table>
+					<div id="result" class="col-12 col-s-12">
+						<div class="is-centered">
+							<table id="result-table" class="col-9 col-s-11">
+								<thead id="thead">
+									<tr>
+										<th>ID</th>
+										<th>Full name</th>
+										<th>Age</th>
+										<th>Occupation</th>
+										<th>SIN number</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+								<tbody id="tbody">
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>

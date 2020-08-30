@@ -1,5 +1,5 @@
 html {
-    background-image: url(https://www.colesclassroom.com/wp-content/uploads/2020/06/architecture-blur-bokeh-bulb-240225.jpg);
+    background-image: url(https://st2.depositphotos.com/2069237/7412/v/600/depositphotos_74127691-stock-video-man-walking-in-office-buiding.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -16,12 +16,21 @@ html {
     font-size: 30px;
     text-align: center;
 }
+
+.is-centered {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    margin-left: 30px;
+    margin-right: 30px;
+}
   
 .form-wrapper {
-    background-color: rgb(88, 63, 105, 0.8);
+    background-color: rgb(56, 56, 56, 0.8);
     padding-top: 1px;
     padding-bottom: 1px;
-    width: 700px;
     border-radius: 10px;
 }
   
@@ -102,15 +111,15 @@ tr:nth-child(even) {
 
 .button-wrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 /* For mobile phones: */
 [class*="col-"] {
     width: 100%;
-  }
-  
-  @media only screen and (min-width: 600px) {
+}
+
+@media only screen and (min-width: 600px) {
     /* For tablets: */
     .col-s-1 {width: 8.33%;}
     .col-s-2 {width: 16.66%;}
@@ -124,8 +133,9 @@ tr:nth-child(even) {
     .col-s-10 {width: 83.33%;}
     .col-s-11 {width: 91.66%;}
     .col-s-12 {width: 100%;}
-  }
-  @media only screen and (min-width: 768px) {
+}
+
+@media only screen and (min-width: 768px) {
     /* For desktop: */
     .col-1 {width: 8.33%;}
     .col-2 {width: 16.66%;}
@@ -139,4 +149,4 @@ tr:nth-child(even) {
     .col-10 {width: 83.33%;}
     .col-11 {width: 91.66%;}
     .col-12 {width: 100%;}
-  }
+}
