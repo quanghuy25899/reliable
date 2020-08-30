@@ -45,7 +45,7 @@ var finalList = [
         }
     }
 ];
-finalList.sort((a, b) => a.data.name < b.data.name ? -1 : 1);
+finalList.sort((a, b) => a.data.name.toLocaleLowerCase() < b.data.name.toLocaleLowerCase() ? -1 : 1);
 
 var idCounter = 6;
 
@@ -114,7 +114,7 @@ handlePopulateTable = () => {
 // Form validation
 validateForm = () => {
     var missingField = false;
-    const sinFormat = /[0-9]{3}-[0-9]{3}-[0-9]{3}/gm;
+    const sinFormat = /[0-9]{3}-[0-9]{3}-[0-9]{3}/;
     var personData = {};
 
     const formData = new FormData(document.querySelector('form'))
@@ -131,7 +131,7 @@ validateForm = () => {
                     missingField = true;
                 }
             } else if (pair[0] === "sin") {
-                if(pair[1].match(sinFormat)) {
+                if(pair[1].match(sinFormat) && pair[1].length === 11) {
                     personData[pair[0]] = pair[1];
                 } else {
                     alert(`Please input the correct format of your ${pair[0]}`);
@@ -147,7 +147,7 @@ validateForm = () => {
         handleDeleteTable();
         finalList.push({ id: idCounter, data: personData });
         idCounter++;
-        finalList.sort((a, b) => a.data.name < b.data.name ? -1 : 1);
+        finalList.sort((a, b) => a.data.name.toLocaleLowerCase() < b.data.name.toLocaleLowerCase() ? -1 : 1);
 
         handlePopulateTable();
     }
